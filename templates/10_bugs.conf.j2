@@ -1,0 +1,16 @@
+<VirtualHost *:80>
+   DocumentRoot /var/www/{{ httpd_public_hostname }}
+   ServerName {{ httpd_public_hostname }}
+   CustomLog logs/{{ httpd_public_hostname }}_access.log combined
+   ErrorLog logs/{{ httpd_public_hostname }}_error.log
+   Redirect bugzilla.centos.org http://{{ httpd_public_hostname }}
+   Redirect bugzilla.centos.org/ http://{{ httpd_public_hostname }}
+   Redirect /yum5bug http://{{ httpd_public_hostname }}/bug_report_page.php
+
+   RewriteEngine On
+   RewriteCond $1 !^.well-known
+   RewriteCond %{HTTPS} !=on
+   RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R,L]
+
+</VirtualHost>
+

@@ -1,0 +1,10 @@
+---
+# defaults file for mantisbt---
+# DB settings
+use_remote_mysql_host: False
+mysql_host: localhost
+mantisbt_db_name: mantisbt
+mantisbt_db_user: mantisbt
+mantisbt_db_pass: bugmewhenyouwant
+
+httpd_public_hostname: mantis.domain.com
