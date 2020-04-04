@@ -1,20 +1,18 @@
 ---
 # tasks file for mantisbt
-- name: Creating mandatory DB 
-  include_role: 
-    name: mysql
-    tasks_from: db_remote
-  vars:
-    db_user: "{{ mantisbt_db_user }}"
-    db_pass: "{{ mantisbt_db_pass }}"
-    db_name: "{{ mantisbt_db_name }}"
-  when: use_remote_mysql_host
-  delegate_to: "{{ mysql_host }}"
-
-- name: Opening iptables if needed on remote mysql host
-  include_role: 
-    name: iptables
-    tasks_from: remote-mysqld
+- block:
+    - name: Creating mandatory DB 
+      include_role: 
+        name: mysql
+        tasks_from: db_remote
+      vars:
+        db_user: "{{ mantisbt_db_user }}"
+        db_pass: "{{ mantisbt_db_pass }}"
+        db_name: "{{ mantisbt_db_name }}"
+    - name: Opening iptables if needed on remote mysql host
+      include_role: 
+        name: iptables
+        tasks_from: remote-mysqld
   when: use_remote_mysql_host
   delegate_to: "{{ mysql_host }}"
 
