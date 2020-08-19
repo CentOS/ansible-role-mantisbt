@@ -47,6 +47,7 @@
   template:
     src: "{{ item }}.j2"
     dest: "/etc/httpd/conf.d/{{ item }}"
+    mode: 0644
   with_items:
     - 10_bugs.conf
     - ssl-bugs.conf
